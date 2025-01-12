@@ -5,6 +5,7 @@ import {DeleteTweetComponent} from '../delete-tweet/delete-tweet.component';
 import {User} from '../../../classes/user';
 import {UserService} from '../../../services/user.service';
 import {LikeTweetComponent} from '../like-tweet/like-tweet.component';
+import {LikeService} from '../../../services/like.service';
 
 @Component({
   selector: 'app-tweet-list',
@@ -19,8 +20,9 @@ import {LikeTweetComponent} from '../like-tweet/like-tweet.component';
 export class TweetListComponent implements OnInit {
   tweets: Tweet[] = [];
   users: User[] = [];
+  voteCounts: Map<number, number> = new Map();
 
-  constructor(private tweetService: TweetService, private userService: UserService) {
+  constructor(private tweetService: TweetService, private userService: UserService, private likeService: LikeService) {
   }
 
   ngOnInit(): void {
@@ -31,12 +33,33 @@ export class TweetListComponent implements OnInit {
   private loadTweets() {
     this.tweetService.fetchAllTweets().subscribe((data: Tweet[]) => {
       this.tweets = data;
+      this.loadVoteCounts();
     });
   }
 
   private loadUsers() {
     this.userService.fetchAllUsers().subscribe((data: User[]) => {
       this.users = data;
+    });
+  }
+
+  private loadVoteCounts() {
+    this.tweets.forEach(tweet => {
+      this.getLikeCount(tweet.id);
+    });
+  }
+
+  getLikeCount(tweetId: number | undefined): void {
+    if (tweetId === undefined) return;
+
+    this.likeService.getLikeCount(tweetId).subscribe({
+      next: (response) => {
+        const count = response.likeCount;
+        this.voteCounts.set(tweetId, count);
+      },
+      error: (err) => {
+        console.error('Error fetching vote count', err);
+      }
     });
   }
 
@@ -50,6 +73,6 @@ export class TweetListComponent implements OnInit {
   }
 
   onTweetLiked($event: Tweet) {
-    
+    this.loadTweets();
   }
 }

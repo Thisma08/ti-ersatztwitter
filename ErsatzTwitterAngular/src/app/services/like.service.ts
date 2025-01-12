@@ -22,4 +22,8 @@ export class LikeService {
       })
     );
   }
+
+  getLikeCount(tweetId: number | undefined): Observable<{ likeCount: number }> {
+    return this.http.get<{ likeCount: number }>(`${this.apiUrl}/${tweetId}`);
+  }
 }

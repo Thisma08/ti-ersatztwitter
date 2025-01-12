@@ -9,6 +9,8 @@
           {{tweet.content}}
         </a>
         <br>
+        <a>{{voteCounts.get(tweet.id!) || 0}} likes</a>
+        <br>
         <a>
           <app-like-tweet [tweet]="tweet" (likedTweet)="onTweetLiked($event)"></app-like-tweet>
         </a>
