@@ -1,0 +1,6 @@
+<button (click)="likeTweet()">Like</button>
+@if(errorMessage) {
+  <div class="error">
+    Failed to like: {{this.errorMessage}}
+  </div>
+}

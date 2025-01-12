@@ -17,7 +17,7 @@ export class DeleteTweetComponent {
 
   constructor(private tweetService: TweetService) {}
 
-  deleteMusic(): void {
+  deleteTweet(): void {
     this.tweetService.deleteTweet(this.tweet.id).subscribe({
       next: () => {
         this.deletedTweet.emit(this.tweet);

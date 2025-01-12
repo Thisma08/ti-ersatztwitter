@@ -10,6 +10,9 @@
         </a>
         <br>
         <a>
+          <app-like-tweet [tweet]="tweet" (likedTweet)="onTweetLiked($event)"></app-like-tweet>
+        </a>
+        <a>
           <app-delete-tweet [tweet]="tweet" (deletedTweet)="onTweetDeleted($event)"></app-delete-tweet>
         </a>
       </li>

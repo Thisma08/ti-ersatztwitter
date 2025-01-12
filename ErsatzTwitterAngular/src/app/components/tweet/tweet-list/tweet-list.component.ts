@@ -4,11 +4,13 @@ import {Tweet} from '../../../classes/tweet';
 import {DeleteTweetComponent} from '../delete-tweet/delete-tweet.component';
 import {User} from '../../../classes/user';
 import {UserService} from '../../../services/user.service';
+import {LikeTweetComponent} from '../like-tweet/like-tweet.component';
 
 @Component({
   selector: 'app-tweet-list',
   imports: [
-    DeleteTweetComponent
+    DeleteTweetComponent,
+    LikeTweetComponent
   ],
   standalone: true,
   templateUrl: './tweet-list.component.html',
@@ -45,5 +47,9 @@ export class TweetListComponent implements OnInit {
   getUserPseudo(idUser: number): string {
     const user = this.users.find(u => u.id === idUser);
     return user ? user.pseudo : 'Unknown';
+  }
+
+  onTweetLiked($event: Tweet) {
+    
   }
 }

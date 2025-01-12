@@ -26,7 +26,7 @@ public class LikeController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateVote([FromBody] DtoInputLike input)
+    public async Task<IActionResult> CreateLike([FromBody] DtoInputLike input)
     {
         if (input == null)
         {
