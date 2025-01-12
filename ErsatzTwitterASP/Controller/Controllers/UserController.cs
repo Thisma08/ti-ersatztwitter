@@ -27,4 +27,17 @@ public class UserController : ControllerBase
             return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
         }
     }
+    
+    [HttpPost("connect/{userId}")]
+    public IActionResult Connect(int userId)
+    {
+        var userExists = _useCaseFetchAllUsers.Execute().Any(u => u.Id == userId);
+        if (!userExists)
+        {
+            return NotFound(new { message = "User not found" });
+        }
+
+        Response.Cookies.Append("ConnectedUserId", userId.ToString());
+        return Ok(new { message = "User connected", userId });
+    }
 }

@@ -20,3 +20,14 @@ M:\ecole\2024-2025\TI\MusicParty2\MusicParty2ASP\Domain\obj\Debug\net7.0\Domain.
 M:\ecole\2024-2025\TI\MusicParty2\MusicParty2ASP\Domain\obj\Debug\net7.0\refint\Domain.dll
 M:\ecole\2024-2025\TI\MusicParty2\MusicParty2ASP\Domain\obj\Debug\net7.0\Domain.pdb
 M:\ecole\2024-2025\TI\MusicParty2\MusicParty2ASP\Domain\obj\Debug\net7.0\ref\Domain.dll
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\bin\Debug\net7.0\Domain.deps.json
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\bin\Debug\net7.0\Domain.dll
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\bin\Debug\net7.0\Domain.pdb
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\obj\Debug\net7.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\obj\Debug\net7.0\Domain.AssemblyInfoInputs.cache
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\obj\Debug\net7.0\Domain.AssemblyInfo.cs
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\obj\Debug\net7.0\Domain.csproj.CoreCompileInputs.cache
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\obj\Debug\net7.0\Domain.dll
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\obj\Debug\net7.0\refint\Domain.dll
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\obj\Debug\net7.0\Domain.pdb
+M:\ecole\2024-2025\TI\ErsatzTwitter2\ErsatzTwitterASP\Domain\obj\Debug\net7.0\ref\Domain.dll

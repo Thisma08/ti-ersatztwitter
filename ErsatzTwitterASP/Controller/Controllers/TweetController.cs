@@ -44,8 +44,31 @@ public class TweetController : ControllerBase
     }
     
     [HttpDelete("{id}")]
-    public ActionResult Delete(int id)
+    public IActionResult Delete(int id)
     {
-        return Ok(_useCaseDeleteTweet.Execute(id));
+        var connectedUserIdCookie = HttpContext.Request.Cookies["ConnectedUserId"];
+        if (string.IsNullOrEmpty(connectedUserIdCookie))
+        {
+            return Unauthorized(new { message = "No user connected" });
+        }
+
+        if (!int.TryParse(connectedUserIdCookie, out var connectedUserId))
+        {
+            return BadRequest(new { message = "Invalid user ID in cookie" });
+        }
+
+        var tweet = _useCaseFetchAllTweets.Execute().FirstOrDefault(t => t.Id == id);
+        if (tweet == null)
+        {
+            return NotFound(new { message = "Tweet not found" });
+        }
+
+        if (tweet.UserId != connectedUserId)
+        {
+            return Unauthorized(new { message = "You can only delete your own tweets" });
+        }
+
+        _useCaseDeleteTweet.Execute(id);
+        return NoContent();
     }
 }

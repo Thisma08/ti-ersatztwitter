@@ -17,6 +17,11 @@ public class TweetRepository : ITweetRepository
     {
         return _context.Tweets.ToList();
     }
+    
+    public DbTweet? FetchById(int id)
+    {
+        return _context.Tweets.FirstOrDefault(t => t.Id == id);
+    }
 
     public DbTweet Create(string content, int userId)
     {
