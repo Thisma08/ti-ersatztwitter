@@ -1,0 +1,23 @@
+<form [formGroup]="connectForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="userId">User</label>
+    <select id="userId" formControlName="userId" type="number">
+      @for(user of users; track $index) {
+        <option [value]="user.id">{{user.pseudo}}</option>
+      }
+    </select>
+  </div>
+  <button type="submit">Connect</button>
+</form>
+
+@if(successMessage) {
+  <div class="success">
+    {{this.successMessage}}
+  </div>
+}
+
+@if(errorMessage) {
+  <div class="error">
+    Failed to connect: {{this.errorMessage}}
+  </div>
+}
