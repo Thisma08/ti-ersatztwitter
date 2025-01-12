@@ -1,0 +1,6 @@
+<button (click)="deleteMusic()">Delete</button>
+@if(errorMessage) {
+  <div class="error">
+    Failed to delete: {{this.errorMessage}}
+  </div>
+}

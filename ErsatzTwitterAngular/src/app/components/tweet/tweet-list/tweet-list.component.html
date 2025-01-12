@@ -1,0 +1,18 @@
+<div>
+  <h2>Tweets</h2>
+  <ul>
+    @for(tweet of tweets; track $index;) {
+      <li>
+        <span class="poster">Posted by: {{ getUserPseudo(tweet.userId) }}</span>
+        <br>
+        <a>
+          {{tweet.content}}
+        </a>
+        <br>
+        <a>
+          <app-delete-tweet [tweet]="tweet" (deletedTweet)="onTweetDeleted($event)"></app-delete-tweet>
+        </a>
+      </li>
+    }
+  </ul>
+</div>

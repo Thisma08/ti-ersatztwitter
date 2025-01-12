@@ -1,0 +1,33 @@
+<form [formGroup]="writeTweetForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="content">Content</label>
+    <textarea id="content" formControlName="content" rows="5" cols="40"></textarea>
+  </div>
+  @if(writeTweetForm.get('content')?.invalid && writeTweetForm.get('content')?.touched) {
+    <div class="error">
+      @if(writeTweetForm.get('content')?.errors?.['required']) {
+        <p>Title is required.</p>
+      }
+      @if(writeTweetForm.get('content')?.errors?.['minlength']) {
+        <p>Title must be at least 2 characters.</p>
+      }
+      @if(writeTweetForm.get('content')?.errors?.['maxlength']) {
+        <p>Title cannot exceed 140 characters.</p>
+      }
+    </div>
+  }
+
+  <button type="submit" [disabled]="writeTweetForm.invalid">Submit</button>
+</form>
+
+@if(successMessage) {
+  <div class="success">
+    {{this.successMessage}}
+  </div>
+}
+
+@if(errorMessage) {
+  <div class="error">
+    Failed to create a music: {{this.errorMessage}}
+  </div>
+}
