@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  etDb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: etDb
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=yourStrong(!)Password
+    ports:
+      - "1433:1433"
+    networks:
+      - et-network
+    restart: always
+    
+  frontend:
+    build:
+      context: ./ErsatzTwitterAngular  
+      dockerfile: Dockerfile
+    container_name: etAngular
+    ports:
+      - "8080:4200"
+    networks:
+      - et-network
+
+  backend:
+    build: 
+      context: .
+      dockerfile: ErsatzTwitterASP/Controller/Dockerfile 
+    container_name: etApi
+    ports:
+      - "5260:80"
+    depends_on:
+      - etDb
+    networks:
+      - et-network
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=etDb;Database=ersatztwitter_db;User Id=sa;Password=yourStrong(!)Password;TrustServerCertificate=true
+    restart: always
+
+networks:
+  et-network:
+    driver: bridge

@@ -7,12 +7,12 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["MusicParty2ASP/Controller/Controller.csproj", "Controller/"]
+COPY ["ErsatzTwitterASP/Controller/Controller.csproj", "Controller/"]
 RUN dotnet restore "Controller/Controller.csproj"
 
-COPY MusicParty2ASP/ ./MusicParty2ASP/
+COPY ErsatzTwitterASP/ ./ErsatzTwitterASP/
 
-WORKDIR "/src/MusicParty2ASP/Controller"
+WORKDIR "/src/ErsatzTwitterASP/Controller"
 RUN dotnet build "Controller.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

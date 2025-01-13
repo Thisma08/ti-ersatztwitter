@@ -6,6 +6,7 @@ div {
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
 }
 
 h2 {
@@ -13,18 +14,6 @@ h2 {
   font-family: Arial, sans-serif;
   color: #333;
   margin-bottom: 20px;
-}
-
-ul {
-  width: 80%;
-  border-collapse: collapse;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-}
-
-ul li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
 }
 
 .poster {

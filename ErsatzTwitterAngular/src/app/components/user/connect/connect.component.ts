@@ -40,9 +40,9 @@ export class ConnectComponent implements OnInit {
       const userId = Number(formValue.userId);
       this.userService.connectUser(userId).subscribe({
         next: () => {
+          location.reload();
           this.successMessage = 'User connected successfully!';
           this.connectForm.reset();
-          location.reload();
           setTimeout(() => {
             this.successMessage = '';
           }, 5000);
