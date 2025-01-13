@@ -1,4 +1,5 @@
 using Application.UseCases.Like.DTOs;
+using Application.UseCases.Utils;
 using AutoMapper;
 using Infrastructure.Repositories;
 
@@ -15,8 +16,8 @@ public class UseCaseDeleteLike
         _mapper = mapper;
     }
 
-    public async Task<bool> Execute(DtoInputLike input)
+    public async Task<bool> Execute(int userId, int tweetId)
     {
-        return await _likeRepository.Delete(input.UserId, input.TweetId);
+        return await _likeRepository.Delete(userId, tweetId);
     }
 }

@@ -1,4 +1,7 @@
-<button (click)="likeTweet()">Like</button>
+<button (click)="likeTweet()">
+  {{ isLiked ? 'Remove Like' : 'Like' }}
+</button>
+
 @if(errorMessage) {
   <div class="error">
     Failed to like: {{this.errorMessage}}

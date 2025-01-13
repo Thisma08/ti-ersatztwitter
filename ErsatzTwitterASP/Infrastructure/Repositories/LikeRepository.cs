@@ -12,6 +12,12 @@ using Infrastructure.DbEntities;
          _context = context;
      }
      
+     public async Task<bool> LikeExists(int userId, int tweetId)
+     {
+         return await _context.Likes
+             .AnyAsync(like => like.UserId == userId && like.TweetId == tweetId);
+     }
+     
      public async Task<DbLike> Create(int userId, int musicId)
      {
          var like = new DbLike

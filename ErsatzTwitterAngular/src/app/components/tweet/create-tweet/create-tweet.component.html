@@ -6,13 +6,13 @@
   @if(writeTweetForm.get('content')?.invalid && writeTweetForm.get('content')?.touched) {
     <div class="error">
       @if(writeTweetForm.get('content')?.errors?.['required']) {
-        <p>Title is required.</p>
+        <p>Content is required.</p>
       }
       @if(writeTweetForm.get('content')?.errors?.['minlength']) {
-        <p>Title must be at least 2 characters.</p>
+        <p>Content must be at least 2 characters.</p>
       }
       @if(writeTweetForm.get('content')?.errors?.['maxlength']) {
-        <p>Title cannot exceed 140 characters.</p>
+        <p>Content cannot exceed 140 characters.</p>
       }
     </div>
   }

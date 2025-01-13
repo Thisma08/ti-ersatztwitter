@@ -20,7 +20,7 @@ import {LikeService} from '../../../services/like.service';
 export class TweetListComponent implements OnInit {
   tweets: Tweet[] = [];
   users: User[] = [];
-  voteCounts: Map<number, number> = new Map();
+  likeCounts: Map<number, number> = new Map();
 
   constructor(private tweetService: TweetService, private userService: UserService, private likeService: LikeService) {
   }
@@ -55,7 +55,7 @@ export class TweetListComponent implements OnInit {
     this.likeService.getLikeCount(tweetId).subscribe({
       next: (response) => {
         const count = response.likeCount;
-        this.voteCounts.set(tweetId, count);
+        this.likeCounts.set(tweetId, count);
       },
       error: (err) => {
         console.error('Error fetching like count', err);

@@ -1,5 +1,7 @@
 using Application.UseCases.Tweet;
 using Application.UseCases.Tweet.Dtos;
+using Domain.Exceptions;
+using Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MusicParty2.Controllers;
@@ -11,12 +13,14 @@ public class TweetController : ControllerBase
     private readonly UseCaseFetchAllTweets _useCaseFetchAllTweets;
     private readonly UseCaseCreateTweet _useCaseCreateTweet;
     private readonly UseCaseDeleteTweet _useCaseDeleteTweet;
+    private readonly TweetService _tweetService;
 
-    public TweetController(UseCaseDeleteTweet useCaseDeleteTweet, UseCaseCreateTweet useCaseCreateTweet, UseCaseFetchAllTweets useCaseFetchAllTweets)
+    public TweetController(UseCaseDeleteTweet useCaseDeleteTweet, UseCaseCreateTweet useCaseCreateTweet, UseCaseFetchAllTweets useCaseFetchAllTweets, TweetService tweetService)
     {
         _useCaseDeleteTweet = useCaseDeleteTweet;
         _useCaseCreateTweet = useCaseCreateTweet;
         _useCaseFetchAllTweets = useCaseFetchAllTweets;
+        _tweetService = tweetService;
     }
 
     [HttpGet]
@@ -79,14 +83,15 @@ public class TweetController : ControllerBase
             {
                 return NotFound(new { message = "Tweet not found" });
             }
-
-            if (tweet.UserId != connectedUserId)
-            {
-                return Unauthorized(new { message = "You can only delete your own tweets" });
-            }
+            
+            _tweetService.CheckIfDeletionIsValid(tweet.UserId, connectedUserId);
 
             await _useCaseDeleteTweet.Execute(id);
             return NoContent();
+        }
+        catch (UserDeleteOwnTweetException ex)
+        {
+            return Unauthorized(new { message = ex.Message });
         }
         catch (Exception ex)
         {

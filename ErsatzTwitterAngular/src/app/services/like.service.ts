@@ -23,6 +23,14 @@ export class LikeService {
     );
   }
 
+  removeLike(userId: number | null, tweetId: number | undefined): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${userId}/${tweetId}`);
+  }
+
+  isLikedByUser(userId: number | null, tweetId: number | undefined): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${userId}/${tweetId}/exists`);
+  }
+
   getLikeCount(tweetId: number | undefined): Observable<{ likeCount: number }> {
     return this.http.get<{ likeCount: number }>(`${this.apiUrl}/${tweetId}`);
   }

@@ -2,6 +2,7 @@ using Application;
 using Application.UseCases.Like;
 using Application.UseCases.Tweet;
 using Application.UseCases.User;
+using Domain.Services;
 using Infrastructure;
 using Infrastructure.Repositories;
 /*using Infrastructure.Models;
@@ -45,9 +46,12 @@ builder.Services.AddScoped<UseCaseFetchAllTweets>();
 builder.Services.AddScoped<UseCaseCreateTweet>();
 builder.Services.AddScoped<UseCaseDeleteTweet>();
 
+builder.Services.AddScoped<UseCaseFetchByUserAndTweet>();
 builder.Services.AddScoped<UseCaseCreateLike>();
 builder.Services.AddScoped<UseCaseDeleteLike>();
 builder.Services.AddScoped<UseCaseCountLikes>();
+
+builder.Services.AddScoped<TweetService>();
 
 var app = builder.Build();
 

@@ -44,7 +44,7 @@ export class CreateTweetComponent {
 
       this.tweetService.createTweet(tweet).subscribe({
         next: (response) => {
-          this.successMessage = 'Tweet created successfully!';
+          this.successMessage = 'Tweet has been created successfully!';
           this.writeTweetForm.reset();
           setTimeout(() => {
             this.successMessage = '';
