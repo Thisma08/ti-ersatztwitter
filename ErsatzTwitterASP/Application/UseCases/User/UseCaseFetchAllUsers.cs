@@ -15,10 +15,10 @@ public class UseCaseFetchAllUsers : IUseCaseQuery<IEnumerable<DtoOutputUser>>
         _userRepository = userRepository;
         _mapper = mapper;
     }
-
-    public IEnumerable<DtoOutputUser> Execute()
+    
+    public async Task<IEnumerable<DtoOutputUser>> Execute()
     {
-        var users = _userRepository.FetchAll();
+        var users = await _userRepository.FetchAll();
         return _mapper.Map<IEnumerable<DtoOutputUser>>(users);
     }
 }

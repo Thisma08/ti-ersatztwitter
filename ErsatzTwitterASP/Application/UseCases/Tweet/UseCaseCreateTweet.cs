@@ -16,13 +16,13 @@ public class UseCaseCreateTweet : IUseCaseWriter<DtoOutputTweet, DtoInputTweet>
         _mapper = mapper;
     }
 
-    public DtoOutputTweet Execute(DtoInputTweet input)
+    public async Task<DtoOutputTweet> Execute(DtoInputTweet input)
     {
         var tweet = _mapper.Map<Domain.Tweet>(input);
-        
+
         try
         {
-            var dbTweet = _tweetRepository.Create(tweet.Content, tweet.UserId);
+            var dbTweet = await _tweetRepository.Create(tweet.Content, tweet.UserId);
             return _mapper.Map<DtoOutputTweet>(dbTweet);
         }
         catch (Exception ex)

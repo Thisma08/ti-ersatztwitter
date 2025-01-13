@@ -15,8 +15,8 @@ public class UseCaseDeleteTweet : IUseCaseParametrizedQuery<bool, int>
         _mapper = mapper;
     }
 
-    public bool Execute(int id)
+    public async Task<bool> Execute(int id)
     {
-        return _tweetRepository.Delete(id);
+        return await _tweetRepository.Delete(id);
     }
 }

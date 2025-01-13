@@ -20,31 +20,44 @@ public class TweetController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<DtoOutputTweet>> FetchAll()
+    public async Task<ActionResult<IEnumerable<DtoOutputTweet>>> FetchAll()
     {
-        return Ok(_useCaseFetchAllTweets.Execute());
+        try
+        {
+            var tweets = await _useCaseFetchAllTweets.Execute();
+            return Ok(tweets);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
+        }
     }
 
     [HttpPost]
-    public ActionResult<DtoOutputTweet> Create(DtoInputTweet input)
+    public async Task<ActionResult<DtoOutputTweet>> Create([FromBody] DtoInputTweet input)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-        
+
         try
         {
-            return Ok(_useCaseCreateTweet.Execute(input));
+            var createdTweet = await _useCaseCreateTweet.Execute(input);
+            return Ok(createdTweet);
         }
         catch (InvalidOperationException ex)
         {
             return Conflict(new { message = ex.Message });
         }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
+        }
     }
-    
+
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var connectedUserIdCookie = HttpContext.Request.Cookies["ConnectedUserId"];
         if (string.IsNullOrEmpty(connectedUserIdCookie))
@@ -57,18 +70,27 @@ public class TweetController : ControllerBase
             return BadRequest(new { message = "Invalid user ID in cookie" });
         }
 
-        var tweet = _useCaseFetchAllTweets.Execute().FirstOrDefault(t => t.Id == id);
-        if (tweet == null)
+        try
         {
-            return NotFound(new { message = "Tweet not found" });
-        }
+            var tweets = await _useCaseFetchAllTweets.Execute();
+            var tweet = tweets.FirstOrDefault(t => t.Id == id);
 
-        if (tweet.UserId != connectedUserId)
+            if (tweet == null)
+            {
+                return NotFound(new { message = "Tweet not found" });
+            }
+
+            if (tweet.UserId != connectedUserId)
+            {
+                return Unauthorized(new { message = "You can only delete your own tweets" });
+            }
+
+            await _useCaseDeleteTweet.Execute(id);
+            return NoContent();
+        }
+        catch (Exception ex)
         {
-            return Unauthorized(new { message = "You can only delete your own tweets" });
+            return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
         }
-
-        _useCaseDeleteTweet.Execute(id);
-        return NoContent();
     }
 }

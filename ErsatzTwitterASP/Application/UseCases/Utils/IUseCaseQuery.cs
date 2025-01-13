@@ -1,6 +1,6 @@
 namespace Application.UseCases.Utils;
 
-public interface IUseCaseQuery<out TOutput>
+public interface IUseCaseQuery<TOutput>
 {
-    TOutput Execute();
+    Task<TOutput> Execute();
 }

@@ -16,9 +16,9 @@ public class UseCaseFetchAllTweets : IUseCaseQuery<IEnumerable<DtoOutputTweet>>
         _mapper = mapper;
     }
 
-    public IEnumerable<DtoOutputTweet> Execute()
+    public async Task<IEnumerable<DtoOutputTweet>> Execute()
     {
-        var musics = _tweetRepository.FetchAll();
-        return _mapper.Map<IEnumerable<DtoOutputTweet>>(musics);
+        var tweets = await _tweetRepository.FetchAll();
+        return _mapper.Map<IEnumerable<DtoOutputTweet>>(tweets);
     }
 }

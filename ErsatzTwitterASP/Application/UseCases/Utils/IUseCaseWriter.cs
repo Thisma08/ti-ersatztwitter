@@ -1,6 +1,6 @@
 namespace Application.UseCases.Utils;
 
-public interface IUseCaseWriter<out TOutput, in TInput>
+public interface IUseCaseWriter<TOutput, in TInput>
 {
-    TOutput Execute(TInput input);
+    Task<TOutput> Execute(TInput input);
 }

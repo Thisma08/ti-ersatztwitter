@@ -13,41 +13,41 @@ public class TweetRepository : ITweetRepository
         _context = context;
     }
 
-    public IEnumerable<DbTweet> FetchAll()
+    public async Task<IEnumerable<DbTweet>> FetchAll()
     {
-        return _context.Tweets.ToList();
+        return await _context.Tweets.ToListAsync();
     }
     
-    public DbTweet? FetchById(int id)
+    public async Task<DbTweet?> FetchById(int id)
     {
-        return _context.Tweets.FirstOrDefault(t => t.Id == id);
+        return await _context.Tweets.FirstOrDefaultAsync(t => t.Id == id);
     }
 
-    public DbTweet Create(string content, int userId)
+    public async Task<DbTweet> Create(string content, int userId)
     {
-        var music = new DbTweet
+        var tweet = new DbTweet
         {
             Content = content,
             UserId = userId
         };
-        
-        _context.Tweets.Add(music); 
-        _context.SaveChanges();
 
-        return music;
+        await _context.Tweets.AddAsync(tweet); 
+        await _context.SaveChangesAsync();
+
+        return tweet;
     }
 
-    public bool Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        var music = _context.Tweets.FirstOrDefault(m => m.Id == id);
+        var tweet = await _context.Tweets.FirstOrDefaultAsync(t => t.Id == id);
 
-        if (music == null)
+        if (tweet == null)
         {
             return false;
         }
-        
-        _context.Tweets.Remove(music);
-        _context.SaveChanges();
+
+        _context.Tweets.Remove(tweet);
+        await _context.SaveChangesAsync();
         return true;
     }
 }

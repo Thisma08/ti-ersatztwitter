@@ -1,4 +1,5 @@
 using Infrastructure.DbEntities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
@@ -11,8 +12,8 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public IEnumerable<DbUser> FetchAll()
+    public async Task<IEnumerable<DbUser>> FetchAll()
     {
-        return _context.Users.ToList();
+        return await _context.Users.ToListAsync();
     }
 }

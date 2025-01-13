@@ -16,11 +16,12 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<DtoOutputUser>> FetchAll()
+    public async Task<ActionResult<IEnumerable<DtoOutputUser>>> FetchAll()
     {
         try
         {
-            return Ok(_useCaseFetchAllUsers.Execute());
+            var users = await _useCaseFetchAllUsers.Execute();
+            return Ok(users);
         }
         catch (Exception ex)
         {
@@ -29,10 +30,11 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("connect/{userId}")]
-    public IActionResult Connect(int userId)
+    public async Task<IActionResult> Connect(int userId)
     {
-        var userExists = _useCaseFetchAllUsers.Execute().Any(u => u.Id == userId);
-        if (!userExists)
+        var users = await _useCaseFetchAllUsers.Execute();
+
+        if (!users.Any(u => u.Id == userId))
         {
             return NotFound(new { message = "User not found" });
         }

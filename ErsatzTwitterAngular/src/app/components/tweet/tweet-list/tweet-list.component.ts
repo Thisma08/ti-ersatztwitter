@@ -58,7 +58,7 @@ export class TweetListComponent implements OnInit {
         this.voteCounts.set(tweetId, count);
       },
       error: (err) => {
-        console.error('Error fetching vote count', err);
+        console.error('Error fetching like count', err);
       }
     });
   }

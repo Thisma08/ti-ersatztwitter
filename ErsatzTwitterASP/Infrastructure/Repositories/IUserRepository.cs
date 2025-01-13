@@ -4,5 +4,5 @@ namespace Infrastructure.Repositories;
 
 public interface IUserRepository
 {
-    IEnumerable<DbUser> FetchAll();
+    Task<IEnumerable<DbUser>> FetchAll();
 }
