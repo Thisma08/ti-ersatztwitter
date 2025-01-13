@@ -10,12 +10,15 @@ public class LikeController : ControllerBase
 {
     private readonly UseCaseCreateLike _useCaseCreateLikee;
     private readonly UseCaseCountLikes _useCaseCountLikes;
+    private readonly UseCaseDeleteLike _useCaseDeleteLike;
 
 
-    public LikeController(UseCaseCreateLike useCaseCreateLikee, UseCaseCountLikes useCaseCountLikes)
+
+    public LikeController(UseCaseCreateLike useCaseCreateLikee, UseCaseCountLikes useCaseCountLikes, UseCaseDeleteLike useCaseDeleteLike)
     {
         _useCaseCreateLikee = useCaseCreateLikee;
         _useCaseCountLikes = useCaseCountLikes;
+        _useCaseDeleteLike = useCaseDeleteLike;
     }
 
     [HttpGet("{id}")]
@@ -44,6 +47,20 @@ public class LikeController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, new { message = ex.Message });
+        }
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete([FromBody] DtoInputLike input)
+    {
+        try
+        {
+            await _useCaseDeleteLike.Execute(input);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
         }
     }
 }

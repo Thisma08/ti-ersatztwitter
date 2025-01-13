@@ -14,14 +14,14 @@ using Infrastructure.DbEntities;
      
      public async Task<DbLike> Create(int userId, int musicId)
      {
-         var vote = new DbLike
+         var like = new DbLike
          {
              UserId = userId,
              TweetId = musicId
          };
-         _context.Likes.Add(vote);
+         _context.Likes.Add(like);
          await _context.SaveChangesAsync();
-         return vote;
+         return like;
      }
      
      public async Task<DbUser> FetchUserById(int userId)
@@ -32,6 +32,21 @@ using Infrastructure.DbEntities;
      public async Task<DbTweet> FetchTweetById(int tweetId)
      {
          return await _context.Tweets.FindAsync(tweetId);
+     }
+     
+     public async Task<bool> Delete(int userId, int tweetId)
+     {
+         var like = await _context.Likes
+             .FirstOrDefaultAsync(l => l.UserId == userId && l.TweetId == tweetId);
+    
+         if (like == null)
+         {
+             return false;
+         }
+    
+         _context.Likes.Remove(like);
+         await _context.SaveChangesAsync();
+         return true;
      }
      
      public async Task<int> CountLikes(int musicId)

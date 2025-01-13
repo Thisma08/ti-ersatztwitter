@@ -46,6 +46,7 @@ builder.Services.AddScoped<UseCaseCreateTweet>();
 builder.Services.AddScoped<UseCaseDeleteTweet>();
 
 builder.Services.AddScoped<UseCaseCreateLike>();
+builder.Services.AddScoped<UseCaseDeleteLike>();
 builder.Services.AddScoped<UseCaseCountLikes>();
 
 var app = builder.Build();
