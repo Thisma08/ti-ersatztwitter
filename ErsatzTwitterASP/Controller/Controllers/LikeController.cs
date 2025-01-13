@@ -62,7 +62,7 @@ public class LikeController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { message = ex.Message });
+            return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
         }
     }
 

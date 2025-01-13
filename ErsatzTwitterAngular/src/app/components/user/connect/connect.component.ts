@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {User} from '../../../classes/user';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
@@ -42,6 +42,7 @@ export class ConnectComponent implements OnInit {
         next: () => {
           this.successMessage = 'User connected successfully!';
           this.connectForm.reset();
+          location.reload();
           setTimeout(() => {
             this.successMessage = '';
           }, 5000);

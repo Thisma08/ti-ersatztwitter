@@ -5,7 +5,7 @@ import {TweetListComponent} from './components/tweet/tweet-list/tweet-list.compo
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ConnectComponent, TweetListComponent, RouterLinkActive, RouterLink],
+  imports: [RouterOutlet, ConnectComponent, RouterLinkActive, RouterLink],
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
