@@ -4,7 +4,7 @@ namespace Infrastructure.Repositories;
 
 public interface ILikeRepository
 {
-    Task<bool> LikeExists(int userId, int tweetId);
+    Task<bool> Exists(int userId, int tweetId);
     Task<DbLike> Create(int userId, int tweetId);
     Task<DbUser> FetchUserById(int userId);
     Task<DbTweet> FetchTweetById(int tweetId);

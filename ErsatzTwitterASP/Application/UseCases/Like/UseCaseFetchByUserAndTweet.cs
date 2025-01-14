@@ -13,6 +13,6 @@ public class UseCaseFetchByUserAndTweet
 
     public async Task<bool> Execute(int userId, int tweetId)
     {
-        return await _likeRepository.LikeExists(userId, tweetId);
+        return await _likeRepository.Exists(userId, tweetId);
     }
 }

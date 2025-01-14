@@ -12,10 +12,9 @@ using Infrastructure.DbEntities;
          _context = context;
      }
      
-     public async Task<bool> LikeExists(int userId, int tweetId)
+     public async Task<bool> Exists(int userId, int tweetId)
      {
-         return await _context.Likes
-             .AnyAsync(like => like.UserId == userId && like.TweetId == tweetId);
+         return await _context.Likes.AnyAsync(l => l.UserId == userId && l.TweetId == tweetId);
      }
      
      public async Task<DbLike> Create(int userId, int musicId)

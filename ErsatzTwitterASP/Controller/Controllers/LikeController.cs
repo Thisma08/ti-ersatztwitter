@@ -60,6 +60,10 @@ public class LikeController : ControllerBase
         {
             return NotFound(new { message = ex.Message });
         }
+        catch (InvalidOperationException ex)
+        {
+            return StatusCode(500, new { message = ex.Message });
+        }
         catch (Exception ex)
         {
             return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });

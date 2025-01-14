@@ -22,6 +22,12 @@ public class UseCaseCreateLike
         if (input == null)
             throw new ArgumentNullException(nameof(input));
         
+        var likeExists = await _likeRepository.Exists(input.UserId, input.TweetId);
+        if (likeExists)
+        {
+            throw new InvalidOperationException("This like has already been made by this person on this tweet.");
+        }
+        
         var dbUser = await _likeRepository.FetchUserById(input.UserId);
         var dbTweet = await _likeRepository.FetchTweetById(input.TweetId);
         
@@ -36,18 +42,7 @@ public class UseCaseCreateLike
             User = user
         };
         
-        try
-        {
-            await _likeRepository.Create(input.UserId, input.TweetId);
-        }
-        catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx && sqlEx.Number == 2627)
-        {
-            throw new InvalidOperationException("This like has already been made by this person on this tweet.");
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException($"An error occurred: {ex.Message}");
-        }
+        await _likeRepository.Create(input.UserId, input.TweetId);
         
         return new DtoOutputLike
         {
