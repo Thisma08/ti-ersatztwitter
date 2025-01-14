@@ -2,7 +2,9 @@
   <h2>Tweets</h2>
   @for(tweet of tweets; track $index;) {
     <div>
-      <span class="poster">Posted by: {{ getUserPseudo(tweet.userId) }}, {{tweet.postDate | date:"dd/MM/yyyy HH:mm"}}</span>
+      <strong>{{ getUserPseudo(tweet.userId) }}</strong>
+      <br>
+      <span class="date"> {{tweet.postDate | date:"dd/MM/yyyy HH:mm"}}</span>
       <br>
       <a>
         {{tweet.content}}

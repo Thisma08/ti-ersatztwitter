@@ -1,5 +1,6 @@
 using Application.UseCases.Like.DTOs;
 using AutoMapper;
+using Domain.Services;
 using Infrastructure.Repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +11,14 @@ public class UseCaseCreateLike
 {
     private readonly ILikeRepository _likeRepository;
     private readonly IMapper _mapper;
+    private readonly LikeService _likeService;
 
-    public UseCaseCreateLike(ILikeRepository repository, IMapper mapper)
+
+    public UseCaseCreateLike(ILikeRepository repository, IMapper mapper, LikeService likeService)
     {
         _likeRepository = repository;
         _mapper = mapper;
+        _likeService = likeService;
     }
     
     public async Task<DtoOutputLike> Execute(DtoInputLike input)
@@ -23,10 +27,8 @@ public class UseCaseCreateLike
             throw new ArgumentNullException(nameof(input));
         
         var likeExists = await _likeRepository.Exists(input.UserId, input.TweetId);
-        if (likeExists)
-        {
-            throw new InvalidOperationException("This like has already been made by this person on this tweet.");
-        }
+
+        _likeService.ValidateLike(likeExists);
         
         var dbUser = await _likeRepository.FetchUserById(input.UserId);
         var dbTweet = await _likeRepository.FetchTweetById(input.TweetId);

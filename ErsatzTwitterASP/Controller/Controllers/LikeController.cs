@@ -1,5 +1,6 @@
 using Application.UseCases.Like;
 using Application.UseCases.Like.DTOs;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MusicParty2.Controllers;
@@ -63,6 +64,10 @@ public class LikeController : ControllerBase
         catch (InvalidOperationException ex)
         {
             return StatusCode(500, new { message = ex.Message });
+        }
+        catch (DuplicateLikeException ex)
+        {
+            return Conflict(new { message = ex.Message });
         }
         catch (Exception ex)
         {

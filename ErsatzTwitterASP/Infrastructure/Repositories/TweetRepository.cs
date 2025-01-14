@@ -19,7 +19,7 @@ public class TweetRepository : ITweetRepository
             .OrderByDescending(t => t.PostDate)
             .ToListAsync();
     }
-    
+
     public async Task<DbTweet?> FetchById(int id)
     {
         return await _context.Tweets.FirstOrDefaultAsync(t => t.Id == id);

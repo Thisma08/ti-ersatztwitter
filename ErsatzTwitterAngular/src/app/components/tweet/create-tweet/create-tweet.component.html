@@ -1,7 +1,7 @@
 <form [formGroup]="writeTweetForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="content">Content</label>
-    <textarea id="content" formControlName="content" rows="5" cols="40"></textarea>
+    <textarea id="content" formControlName="content" rows="5" cols="40" placeholder="What's up?"></textarea>
   </div>
   @if(writeTweetForm.get('content')?.invalid && writeTweetForm.get('content')?.touched) {
     <div class="error">

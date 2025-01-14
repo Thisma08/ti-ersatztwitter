@@ -76,18 +76,12 @@ public class TweetController : ControllerBase
 
         try
         {
-            var tweets = await _useCaseFetchAllTweets.Execute();
-            var tweet = tweets.FirstOrDefault(t => t.Id == id);
-
-            if (tweet == null)
-            {
-                return NotFound(new { message = "Tweet not found" });
-            }
-            
-            _tweetService.CheckIfDeletionIsValid(tweet.UserId, connectedUserId);
-
-            await _useCaseDeleteTweet.Execute(id);
+            await _useCaseDeleteTweet.Execute((id, connectedUserId));
             return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(new { message = ex.Message });
         }
         catch (UserDeleteOwnTweetException ex)
         {

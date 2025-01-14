@@ -21,6 +21,7 @@ create table tweets
 (
     id int identity primary key,
     content varchar(140),
+    postDate datetime not null default getdate(),
     userId int not null references users
 );
 go;
@@ -42,12 +43,8 @@ go;
 
 insert into tweets(content, userId)
 values
-    ('This is my first tweet', 1)
-go;
-
-insert into likes(userId, tweetId)
-values
-    (2, 1);
+    ('Hey, I''m Thisma', 1),
+	('Hey, I''m Arisu', 2)
 go;
 
 select * from users;

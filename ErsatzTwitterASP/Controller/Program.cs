@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: corsPolicyName, policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("http://localhost:8080")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
@@ -52,6 +52,7 @@ builder.Services.AddScoped<UseCaseDeleteLike>();
 builder.Services.AddScoped<UseCaseCountLikes>();
 
 builder.Services.AddScoped<TweetService>();
+builder.Services.AddScoped<LikeService>();
 
 var app = builder.Build();
 

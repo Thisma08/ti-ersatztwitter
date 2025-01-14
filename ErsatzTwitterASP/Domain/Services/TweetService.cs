@@ -2,7 +2,7 @@ using Domain.Exceptions;
 
 namespace Domain.Services;
 
-public interface TweetService
+public class TweetService
 {
     public void CheckIfDeletionIsValid(int tweetUserId, int connectedUserId)
     {
