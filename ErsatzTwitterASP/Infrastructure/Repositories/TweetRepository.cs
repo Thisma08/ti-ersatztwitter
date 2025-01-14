@@ -15,7 +15,9 @@ public class TweetRepository : ITweetRepository
 
     public async Task<IEnumerable<DbTweet>> FetchAll()
     {
-        return await _context.Tweets.ToListAsync();
+        return await _context.Tweets
+            .OrderByDescending(t => t.PostDate)
+            .ToListAsync();
     }
     
     public async Task<DbTweet?> FetchById(int id)
