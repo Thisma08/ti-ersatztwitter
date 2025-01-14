@@ -6,9 +6,7 @@
       <br>
       <span class="date"> {{tweet.postDate | date:"dd/MM/yyyy HH:mm"}}</span>
       <br>
-      <a>
-        {{tweet.content}}
-      </a>
+      <span class="content"> {{tweet.content}} </span>
       <br>
       <a>{{likeCounts.get(tweet.id!) || 0}} likes</a>
       <br>

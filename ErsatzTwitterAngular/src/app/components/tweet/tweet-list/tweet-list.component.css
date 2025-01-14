@@ -7,6 +7,8 @@ div {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 h2 {
@@ -18,4 +20,11 @@ h2 {
 
 .date {
   color: #b6b6b6;
+}
+
+.content {
+  width: 80%;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
