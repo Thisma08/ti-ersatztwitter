@@ -27,6 +27,9 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(140)
                 .IsUnicode(false)
                 .HasColumnName("content");
+            entity.Property(e => e.PostDate)
+                .HasColumnName("postDate")
+                .HasDefaultValueSql("GETDATE()");
 
             entity.HasOne(d => d.DbUser).WithMany(p => p.Tweets)
                 .HasForeignKey(d => d.UserId)

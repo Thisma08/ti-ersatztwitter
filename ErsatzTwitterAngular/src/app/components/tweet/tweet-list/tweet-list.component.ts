@@ -6,12 +6,14 @@ import {User} from '../../../classes/user';
 import {UserService} from '../../../services/user.service';
 import {LikeTweetComponent} from '../like-tweet/like-tweet.component';
 import {LikeService} from '../../../services/like.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-tweet-list',
   imports: [
     DeleteTweetComponent,
-    LikeTweetComponent
+    LikeTweetComponent,
+    DatePipe
   ],
   standalone: true,
   templateUrl: './tweet-list.component.html',

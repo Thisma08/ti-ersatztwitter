@@ -28,6 +28,7 @@ public class TweetRepository : ITweetRepository
         var tweet = new DbTweet
         {
             Content = content,
+            PostDate = DateTime.Now,
             UserId = userId
         };
 
